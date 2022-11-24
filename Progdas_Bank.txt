@@ -1,0 +1,237 @@
+#include <iostream>
+using namespace std;
+
+class bankAccount{
+public:
+        int idPengguna;
+        double saldoPengguna;
+        double setoranpengguna, penarikanpengguna;
+        bankAccount(int idpengguna, double saldo){
+            idpengguna = idpengguna;
+            saldoPengguna = saldo;
+        }
+        double mendapatkanSaldo(){
+            return saldoPengguna;
+        }
+        int mendapatkanIdPengguna(){
+            return idPengguna;
+        }
+        void menetapkanSaldo(double saldo){
+            saldoPengguna = saldo;
+        }
+        void menetapkanIdPengguna(int idCustomer){
+            idPengguna = idCustomer;
+        }
+        void mendapatkanInformasiAkun(){
+            cout << "Informasi Akun Anda" << endl;
+            cout << "-------------------" << endl;
+            cout << "Nomor Akun :" << idPengguna << endl;
+            cout << "Saldo Anda :" << saldoPengguna << endl;
+            cout << endl;
+        }
+        double menetapkanSetoran(double setoran){
+            saldoPengguna += setoran;
+            return saldoPengguna;
+        }
+        double mentapkanPenarikan(double penarikan){
+            if(saldoPengguna >= penarikan){
+                saldoPengguna -= penarikan;
+            }
+            else if(saldoPengguna < penarikan){
+                cout << "Mohon Maaf Saldo Anda Tidak Mencukupi" << endl;
+                cout << "Mohon Kerja Keras Kembali" << endl;
+            }
+            cout << "Saldo Anda Sekarang : ";
+            return saldoPengguna;
+        }
+};
+
+class checkingAccount:bankAccount{
+    public:
+        double saldoMinimal = 10000;
+        double biayaLayanan = 1000;
+        double suku_bunga;
+        checkingAccount(int idPengguna, double saldo, double sukubunga):bankAccount(idPengguna, saldo){
+            suku_bunga = sukubunga; 
+        }
+        void menetapkanSukuBunga(double sukubunga){
+            suku_bunga = sukubunga;
+        }
+        double mendapatkanSukuBunga(){
+            return suku_bunga;
+        }
+        void menetapkanSaldoMin(double saldo){
+            saldoMinimal = saldo;
+        }
+        double mendapatkanSaldoMin(){
+            return saldoMinimal;
+        }
+        double menetapkanSetoran(double setoran){
+            saldoPengguna += setoran;
+            return saldoPengguna;
+        }
+        double mendapatkanSaldo(){
+            return saldoPengguna;
+        }
+        double menetapkanPenarikan(double penarikan){
+            if(saldoPengguna >= penarikan){
+                saldoPengguna -= penarikan;
+            }
+            else if(saldoPengguna < penarikan){
+                cout << "Saldo Anda Tidak Cukup" << endl;
+            }
+            cout << "Saldo Anda Sekarang : " << saldoPengguna << endl;
+            return saldoPengguna;
+        }
+        int mendapatkanMengenakanBiaya(){
+                cout << "Anda dikenakan biaya dikarenakan saldo minimal : Rp " << biayaLayanan << endl;
+                cout << "Demi meningkatkan keamanan dan kenyamanan Anda" << endl;
+                return biayaLayanan;
+        }
+        void mendapatkanInformasiAkun(){
+            cout << "Informasi Akun Anda" << endl;
+            cout << "-------------------" << endl;
+            cout << "Nomor Akun :" << idPengguna << endl;
+            cout << "Saldo Anda :" << saldoPengguna << endl;
+            cout << endl;
+        }
+};
+class savingAccount:bankAccount{
+    double saldoMinimal;
+    public:
+    savingAccount(int idpengguna, double saldo):bankAccount(idPengguna, saldo){
+        saldoMinimal = 10000;
+    }
+    double menetapkanSetoran(double setoran){
+        saldoPengguna += setoran;
+        return saldoPengguna;
+    }
+    double menetapkanPenarikan(double penarikan){
+        if(saldoPengguna >= penarikan){
+            saldoPengguna -= penarikan;
+        }
+            else if(saldoPengguna < penarikan){
+                cout << "Saldo Anda Tidak Mencukupi" << endl;
+                cout << "Mohon Kerja Keras Kembali" << endl;
+            }
+            cout << "Saldo Anda Sekarang : ";
+            return saldoPengguna;
+    }
+    void menetapkanMinSaldo(double saldo){
+        saldoMinimal = saldo;
+    }
+    void mendapatkanInformasiAkun(){
+            cout << "Informasi Akun Anda" << endl;
+            cout << "-------------------" << endl;
+            cout << "Nomor Akun :" << idPengguna << endl;
+            cout << "Saldo Anda :" << saldoPengguna << endl;
+            cout << endl;
+        }
+};
+
+int main(int argc, char const *argv[])
+{
+    double jumlah;
+    int pilihan;
+    do{
+        cout << "Membuat Akun" << endl;
+        cout << "1. Rekening Giro" << endl;
+        cout << "2. Akun Tabungan" << endl;
+        cout << "3. Keluar" << endl;
+        cin >> pilihan;
+        cout << endl;
+
+        if(pilihan==1){
+            int idPengguna1, pilihan1;
+            double saldo1, sukuBunga1, minimal1;
+            cout << "Masukkan ID Akun Anda: ";
+                cin >> idPengguna1;
+            cout << "Masukkan Saldo Awal: ";
+                cin >> saldo1;
+            cout << "Masukkan Suku Bunga: ";
+                cin >> sukuBunga1;
+            checkingAccount orang1(idPengguna1, saldo1, sukuBunga1);
+            cout << "Masukkan Minimal Saldo: ";
+                cin >> minimal1;
+            orang1.menetapkanSaldoMin(minimal1);
+            do{
+                cout << endl;
+                cout << "1. Setoran" << endl;
+                cout << "2. Penarikan Uang" << endl;
+                cout << "3. Informasi Akun" << endl;
+                cout << "4. Keluar" << endl;
+                cin >> pilihan1;
+                cout << endl;
+                
+                switch (pilihan1)
+                {
+                case 1:
+                    cout << "Masukkan Jumlah: " << endl;
+                    cin >> jumlah;
+                    cout << "Saldo Anda Sekarang: " << orang1.menetapkanSetoran(jumlah);
+                    if(orang1.mendapatkanSaldo() < orang1.mendapatkanSaldoMin()){
+                        orang1.mendapatkanMengenakanBiaya();
+                    }
+                    break;
+                case 2:
+                    cout << "Masukkan Jumlah : " << endl;
+                    cin >> jumlah;
+                    cout << orang1.menetapkanPenarikan(jumlah) << endl;
+                    if(orang1.mendapatkanSaldo() < orang1.mendapatkanSaldoMin()){
+                        orang1.mendapatkanMengenakanBiaya();
+                    }
+                    else{
+                    }
+                    break;
+                case 3:
+                    orang1.mendapatkanInformasiAkun();
+                    break;
+                default:
+                    break;
+                }
+            }
+            while(pilihan1!=4);
+        }
+        else if (pilihan==2){
+            int idPengguna2, pilihan2;
+            double saldo2;
+            cout << "Masukkan ID Akun : ";
+                cin >> idPengguna2;
+            cout << "Masukkan Saldo Awal Anda : ";
+                cin >> saldo2;
+            savingAccount orang2(idPengguna2, saldo2);
+            do{
+                cout << endl;
+                cout << "1. Setoran" << endl;
+                cout << "2. Penarikan Uang" << endl;
+                cout << "3. Informasi Akun" << endl;
+                cout << "4. Keluar" << endl; 
+                    cin >> pilihan2;
+                cout << endl;
+                switch (pilihan2)
+                {
+                    case 1:
+                        cout << "Masukkan Nilai : " << endl;
+                            cin >> jumlah;
+                        cout << orang2.menetapkanSetoran(jumlah);
+                        break;
+                    case 2:
+                        cout << "Masukkan Nilai : " << endl;
+                            cin >> jumlah;
+                        cout << orang2.menetapkanPenarikan(jumlah) << endl;
+                        break;
+                    case 3:
+                        orang2.mendapatkanInformasiAkun();
+                        break;
+                    default:
+                        break;
+                    
+                }
+            }
+            while(pilihan2!=4);
+        }
+
+    }
+    while (pilihan!=3);
+    return 0;
+}
